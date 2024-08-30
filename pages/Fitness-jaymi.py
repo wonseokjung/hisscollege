@@ -14,13 +14,14 @@ def password_protection(student_name):
         st.session_state.authenticated = False
 
     if not st.session_state.authenticated:
-        password = st.text_input("Enter password", type="password")
+        password = st.text_input("Enter password, Click Log in x2", type="password")
         if st.button("Login"):
             if password == PASSWORDS.get(student_name):
                 st.session_state.authenticated = True
-                st.experimental_rerun()  # 이 부분을 제거하고 아래와 같이 바꿉니다.
+                # 페이지 새로고침 없이 상태를 저장하고 사용합니다.
             else:
                 st.error("Incorrect password")
+                st.stop()  # 실행 중단
         return False
     return True
 
