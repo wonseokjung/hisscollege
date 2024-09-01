@@ -6,7 +6,7 @@ import plotly.express as px
 
 PASSWORDS = {
     "Jaymi": "jaymi123",
-    "John": "john123",
+    
     # 다른 학생들의 비밀번호도 여기에 추가
 }
 
