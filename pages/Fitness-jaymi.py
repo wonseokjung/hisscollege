@@ -3,12 +3,16 @@ import pandas as pd
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import plotly.express as px
+import numpy as np
+st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
+
 
 PASSWORDS = {
     "Jaymi": "jaymi123",
-    
     # 다른 학생들의 비밀번호도 여기에 추가
 }
+
+
 
 def password_protection(student_name):
     if 'authenticated' not in st.session_state:
@@ -25,11 +29,170 @@ def password_protection(student_name):
         return False
     return True
 
+def calculate_bmi(weight, height):
+    return weight / ((height/100) ** 2)
+
+def get_bmi_category(bmi):
+    if bmi < 18.5:
+        return "Underweight"
+    elif bmi < 25:
+        return "Normal weight"
+    elif bmi < 30:
+        return "Overweight"
+    else:
+        return "Obese"
+
+def bmi_calculator():
+    st.subheader("BMI Calculator")
+    
+    weight = st.number_input("Enter your weight (kg)", min_value=30.0, max_value=200.0, value=97.5, step=0.1)
+    height = st.number_input("Enter your height (cm)", min_value=100.0, max_value=250.0, value=178.0, step=0.1)
+    
+    if st.button("Calculate BMI"):
+        bmi = calculate_bmi(weight, height)
+        bmi_category = get_bmi_category(bmi)
+        
+        st.write(f"Your BMI is: {bmi:.2f}")
+        st.write(f"Category: {bmi_category}")
+        
+        # Create BMI graph
+        fig = go.Figure()
+        
+        # BMI ranges
+        bmi_ranges = [
+            (0, 18.5, "Underweight", "blue"),
+            (18.5, 25, "Normal", "green"),
+            (25, 30, "Overweight", "orange"),
+            (30, 40, "Obese", "red")
+        ]
+        
+        for start, end, label, color in bmi_ranges:
+            fig.add_shape(
+                type="rect",
+                x0=start, x1=end, y0=0, y1=1,
+                fillcolor=color,
+                opacity=0.3,
+                layer="below",
+                line_width=0,
+            )
+            fig.add_annotation(
+                x=(start + end) / 2, y=1.05,
+                text=label,
+                showarrow=False,
+            )
+        
+        # Add marker for current BMI
+        fig.add_trace(go.Scatter(
+            x=[bmi],
+            y=[0.5],
+            mode="markers",
+            marker=dict(size=15, color="black", symbol="star"),
+            name="Your BMI"
+        ))
+        
+        fig.update_layout(
+            title="BMI Chart",
+            xaxis_title="BMI",
+            yaxis_title="",
+            showlegend=False,
+            height=400,
+            yaxis=dict(showticklabels=False, range=[0, 1.1]),
+            xaxis=dict(range=[15, 40]),
+        )
+        
+        st.plotly_chart(fig)
+def detailed_nutrition_plan():
+    st.header("Detailed Nutrition Plan")
+
+    # 더 자세한 주간 식단 계획
+    meal_plan = {
+        "Day": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "Breakfast": [
+            "Greek yogurt (150g) with berries (100g) and granola (30g)",
+            "Whole grain toast (2 slices) with avocado (1/2) and eggs (2)",
+            "Oatmeal (50g dry) with banana (1 medium) and chia seeds (15g)",
+            "Protein pancakes (2) with fresh berries (100g)",
+            "Scrambled eggs (3) with spinach (50g) and whole grain toast (1 slice)",
+            "Whole grain cereal (50g) with almond milk (250ml) and sliced almonds (30g)",
+            "Vegetable omelet (3 eggs) with whole grain toast (1 slice)"
+        ],
+        "Lunch": [
+            "Grilled chicken breast (150g) salad with mixed greens (100g) and vinaigrette (15ml)",
+            "Turkey (100g) and vegetable wrap with hummus (30g)",
+            "Tuna salad (100g tuna) on whole grain bread (2 slices)",
+            "Lentil soup (300ml) with a side salad (100g)",
+            "Grilled vegetable (200g) and chickpea (100g) bowl",
+            "Grilled shrimp skewers (150g) with brown rice (150g cooked)",
+            "Grilled chicken Caesar salad (150g chicken, 100g romaine, light dressing)"
+        ],
+        "Dinner": [
+            "Baked salmon (150g) with quinoa (150g cooked) and roasted vegetables (200g)",
+            "Lean beef stir-fry (150g beef) with brown rice (150g cooked)",
+            "Grilled tofu (200g) with sweet potato (150g) and broccoli (100g)",
+            "Baked chicken breast (150g) with zucchini noodles (200g)",
+            "Lean pork tenderloin (150g) with asparagus (100g) and quinoa (150g cooked)",
+            "Turkey burger (150g, no bun) with sweet potato fries (100g)",
+            "Baked cod (150g) with roasted Brussels sprouts (100g) and wild rice (150g cooked)"
+        ],
+        "Snack": [
+            "Apple slices (1 medium) with almond butter (30g)",
+            "Protein smoothie (1 scoop whey, 250ml almond milk, 1 banana)",
+            "Carrot sticks (100g) with guacamole (50g)",
+            "Greek yogurt (150g) with honey (15g)",
+            "Mixed nuts (30g) and dried fruit (20g)",
+            "Celery sticks (100g) with peanut butter (30g)",
+            "Cottage cheese (150g) with peaches (100g)"
+        ],
+        "Breakfast_Cal": [350, 400, 350, 300, 350, 400, 350],
+        "Lunch_Cal": [400, 450, 400, 350, 400, 450, 400],
+        "Dinner_Cal": [500, 550, 450, 400, 500, 450, 450],
+        "Snack_Cal": [200, 250, 200, 200, 250, 250, 200]
+    }
+
+    df_meal_plan = pd.DataFrame(meal_plan)
+    
+    # 총 칼로리 계산
+    df_meal_plan['Total_Cal'] = df_meal_plan['Breakfast_Cal'] + df_meal_plan['Lunch_Cal'] + df_meal_plan['Dinner_Cal'] + df_meal_plan['Snack_Cal']
+
+    # 대략적인 영양소 비율 계산 (실제로는 더 정확한 계산이 필요합니다)
+    df_meal_plan['Protein'] = df_meal_plan['Total_Cal'] * 0.3 / 4  # 30% of calories from protein
+    df_meal_plan['Carbs'] = df_meal_plan['Total_Cal'] * 0.4 / 4    # 40% of calories from carbs
+    df_meal_plan['Fat'] = df_meal_plan['Total_Cal'] * 0.3 / 9      # 30% of calories from fat
+
+    st.subheader("Weekly Meal Plan with Calorie Breakdown")
+    st.dataframe(df_meal_plan)
+
+    # 일일 칼로리 그래프
+    st.subheader("Daily Calorie Breakdown")
+    fig_calories = px.bar(df_meal_plan, x="Day", y=["Breakfast_Cal", "Lunch_Cal", "Dinner_Cal", "Snack_Cal"],
+                          title="Daily Calorie Intake", labels={'value': 'Calories', 'variable': 'Meal'},
+                          color_discrete_map={'Breakfast_Cal': '#FFA07A', 'Lunch_Cal': '#98FB98', 
+                                              'Dinner_Cal': '#87CEFA', 'Snack_Cal': '#DDA0DD'})
+    fig_calories.add_scatter(x=df_meal_plan["Day"], y=df_meal_plan["Total_Cal"], mode="lines+markers", 
+                             name="Total Calories", line=dict(color="red", width=2))
+    st.plotly_chart(fig_calories)
+
+    # 영양소 비율 그래프
+    st.subheader("Daily Macronutrient Breakdown")
+    fig_macros = px.bar(df_meal_plan, x="Day", y=["Protein", "Carbs", "Fat"],
+                        title="Daily Macronutrient Intake", labels={'value': 'Grams', 'variable': 'Nutrient'},
+                        color_discrete_map={'Protein': '#FF6347', 'Carbs': '#32CD32', 'Fat': '#FFD700'})
+    st.plotly_chart(fig_macros)
+
+    # 영양소 비율 파이 차트
+    st.subheader("Average Macronutrient Ratio")
+    avg_macros = df_meal_plan[['Protein', 'Carbs', 'Fat']].mean()
+    fig_pie = px.pie(values=avg_macros.values, names=avg_macros.index, 
+                     title="Average Macronutrient Ratio",
+                     color_discrete_map={'Protein': '#FF6347', 'Carbs': '#32CD32', 'Fat': '#FFD700'})
+    st.plotly_chart(fig_pie)
+
+
 def show_jaymi_page():
     if not password_protection("Jaymi"):
         return
 
-    st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
+
 
     # Custom CSS for black and white theme with colorful graphs
     st.markdown("""
@@ -121,10 +284,11 @@ def show_jaymi_page():
         )
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # Weekly Progress Data
+        # Weekly Progress Data
     weeks_data = {
         1: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 98.2, "Energy Level": 6, "Sleep Quality": 6.5},
         2: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 97.5, "Energy Level": 7, "Sleep Quality": 7.0},
+        3: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 97.0, "Energy Level": 7, "Sleep Quality": 7.5},
     }
 
     df = pd.DataFrame(weeks_data).T
@@ -132,7 +296,7 @@ def show_jaymi_page():
 
     # Interactive Week Selection
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
-    selected_week = st.slider("Select Week", min_value=1, max_value=len(weeks_data), value=len(weeks_data))
+    selected_week = st.slider("Select Week", min_value=1, max_value=3, value=len(weeks_data))
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
     st.header("Message From Jay Professor")
     professor_messages = {
@@ -182,6 +346,21 @@ def show_jaymi_page():
             ],
             "video_url": "https://www.youtube.com/embed/xW19K-uhOGk"
         },
+        3: {
+            "missions": [
+                "Goal: Lose 500g this week",
+                "Complete the following workout plan:",
+                "- Monday: Core (6 min) + Leg (12 min)",
+                "- Tuesday: Shoulder (6 min) + Core (6 min)",
+                "- Wednesday: Leg (12 min) + Shoulder (6 min)",
+                "- Thursday: Core (6 min) + Leg (12 min)",
+                "- Friday: Shoulder (6 min) + Core (6 min)",
+                "Maintain 8,000 daily steps",
+                "Continue following the nutrition plan, aiming for a slight calorie deficit",
+                "Get at least 7 hours of sleep each night"
+            ],
+            "video_url": "https://www.youtube.com/embed/RSDcw4ROhdM"
+        }
     }
 
     with mission_box:
@@ -210,6 +389,14 @@ def show_jaymi_page():
             """, unsafe_allow_html=True)
         else:
             st.write("No video available for this week.")
+    # 추가: Week 3의 운동 영상 링크
+    if selected_week == 3:
+        st.subheader("Week 3 Workout Videos")
+        st.markdown("""
+        - Core Workout (6 min): [YouTube Link](https://youtu.be/RSDcw4ROhdM?si=NVThuMpc-Gw-bihf)
+        - Leg Workout (12 min): [YouTube Link](https://youtu.be/xW19K-uhOGk)
+        - Shoulder Workout (6 min): [YouTube Link](https://youtu.be/K8b5HsX1MFc)
+        """)
 
     st.markdown('</div>', unsafe_allow_html=True)
 
@@ -229,7 +416,7 @@ def show_jaymi_page():
 
     fig = make_subplots(rows=3, cols=2, subplot_titles=("Weight Progress", "Energy & Sleep", "Strength Metrics", "Endurance Metrics", "Daily Steps"))
 
-    # Weight Progress
+# Weight Progress
     fig.add_trace(go.Scatter(x=df.index, y=df['Weight'], mode='lines+markers', name='Weight', line=dict(color='#FF6B6B')), row=1, col=1)
     fig.add_trace(go.Scatter(x=df.index, y=[85]*len(df), mode='lines', name='Goal Weight', line=dict(dash='dash', color='#4ECDC4')), row=1, col=1)
 
@@ -244,6 +431,7 @@ def show_jaymi_page():
     # Endurance Metrics
     fig.add_trace(go.Bar(x=df.index, y=df['Squat Holding'], name='Squat Holding', marker_color='#FF6B6B'), row=2, col=2)
     fig.add_trace(go.Bar(x=df.index, y=df['Plank Holding'], name='Plank Holding', marker_color='#FFD93D'), row=2, col=2)
+    
     # Daily Steps (New)
     daily_steps = [7500, 8200]  # Example data
     fig.add_trace(go.Scatter(x=df.index, y=daily_steps, mode='lines+markers', name='Daily Steps', line=dict(color='#FF9999')), row=3, col=1)
@@ -297,6 +485,115 @@ def show_jaymi_page():
     fig_heatmap.update_layout(title='Workout Intensity by Day and Week')
     st.plotly_chart(fig_heatmap)
 
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # BMI Calculator and Nutrition Section
+    st.markdown('<div class="custom-container">', unsafe_allow_html=True)
+    st.header("BMI and Nutrition")
+
+    # BMI Calculator
+    bmi_calculator()
+        # Detailed Nutrition Plan
+    detailed_nutrition_plan()
+
+    # Nutrition and Meal Plan Section
+    st.markdown('<div class="custom-container">', unsafe_allow_html=True)
+    st.header("Nutrition and Meal Plan")
+
+    # Nutritional Recommendations
+    st.subheader("Daily Nutritional Intake")
+    col1, col2, col3, col4 = st.columns(4)
+    col1.metric("Calories", "1800-2000 kcal")
+    col2.metric("Protein", "30% (135-150g)")
+    col3.metric("Carbohydrates", "40% (180-200g)")
+    col4.metric("Fats", "30% (60-67g)")
+
+    # Nutrition advice based on BMI
+    bmi = calculate_bmi(97.5, 178)  # Using Jaymi's current weight and height
+    bmi_category = get_bmi_category(bmi)
+
+    st.subheader("Personalized Nutrition Advice")
+    if bmi_category == "Overweight" or bmi_category == "Obese":
+        st.write("Based on your current BMI, focus on creating a calorie deficit while maintaining adequate protein intake to preserve muscle mass. Increase your intake of high-fiber foods and lean proteins, and limit processed foods and added sugars.")
+    elif bmi_category == "Normal weight":
+        st.write("Your BMI is in the normal range. Focus on maintaining a balanced diet with adequate protein for muscle maintenance and growth. Include a variety of fruits, vegetables, whole grains, and lean proteins in your meals.")
+    else:  # Underweight
+        st.write("Your BMI suggests you might be underweight. Focus on increasing your calorie intake with nutrient-dense foods. Include healthy fats, complex carbohydrates, and protein-rich foods in your diet to support healthy weight gain and muscle growth.")
+
+    # Supplement and Vitamin Recommendations
+    st.subheader("Supplement and Vitamin Recommendations")
+    supplements = [
+        ("Whey Protein", "1 scoop (25g) post-workout"),
+        ("Multivitamin", "1 tablet daily with breakfast"),
+        ("Omega-3 Fish Oil", "1000mg daily with a meal"),
+        ("Vitamin D3", "2000 IU daily"),
+        ("Magnesium", "300mg daily before bed"),
+        ("Vitamin C", "500mg daily"),
+        ("Vitamin B Complex", "1 tablet daily"),
+        ("Calcium", "1000mg daily"),
+        ("Zinc", "15mg daily")
+    ]
+
+    df_supplements = pd.DataFrame(supplements, columns=["Supplement/Vitamin", "Dosage"])
+    st.table(df_supplements)
+
+    # Weekly Meal Plan
+    st.subheader("Weekly Meal Plan")
+    meal_plan = {
+        "Day": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "Breakfast": [
+            "Greek yogurt with berries and granola",
+            "Whole grain toast with avocado and eggs",
+            "Oatmeal with banana and chia seeds",
+            "Protein pancakes with fresh berries",
+            "Scrambled eggs with spinach and whole grain toast",
+            "Whole grain cereal with almond milk and sliced almonds",
+            "Vegetable omelet with whole grain toast"
+        ],
+        "Lunch": [
+            "Grilled chicken salad with mixed greens and vinaigrette",
+            "Turkey and vegetable wrap with hummus",
+            "Tuna salad on whole grain bread",
+            "Lentil soup with a side salad",
+            "Grilled vegetable and chickpea bowl",
+            "Grilled shrimp skewers with brown rice",
+            "Grilled chicken Caesar salad (light dressing)"
+        ],
+        "Dinner": [
+            "Baked salmon with quinoa and roasted vegetables",
+            "Lean beef stir-fry with brown rice",
+            "Grilled tofu with sweet potato and broccoli",
+            "Baked chicken breast with zucchini noodles",
+            "Lean pork tenderloin with asparagus and quinoa",
+            "Turkey burger (no bun) with sweet potato fries",
+            "Baked cod with roasted Brussels sprouts and wild rice"
+        ],
+        "Snack": [
+            "Apple slices with almond butter",
+            "Protein smoothie",
+            "Carrot sticks with guacamole",
+            "Greek yogurt with honey",
+            "Mixed nuts and dried fruit",
+            "Celery with peanut butter",
+            "Cottage cheese with peaches"
+        ]
+    }
+
+    df_meal_plan = pd.DataFrame(meal_plan)
+    st.table(df_meal_plan)
+
+    # Calorie Calculator
+    st.subheader("Calorie Calculator")
+    calorie_data = {
+        "Food Item": ["Grilled Chicken Breast", "Brown Rice", "Salmon", "Broccoli", "Sweet Potato", "Quinoa", "Greek Yogurt", "Almonds", "Avocado", "Banana", "Olive Oil", "Whole Grain Bread", "Egg"],
+        "Serving Size": ["100g", "1/2 cup cooked", "100g", "1 cup", "1 medium", "1/2 cup cooked", "1 cup", "1 oz (23 almonds)", "1/2 medium", "1 medium", "1 tbsp", "1 slice", "1 large"],
+        "Calories": [165, 108, 208, 31, 112, 111, 130, 164, 161, 105, 119, 69, 78]
+    }
+
+    df_calories = pd.DataFrame(calorie_data)
+    st.table(df_calories)
+
+    st.markdown("Note: These are approximate values. Actual calories may vary slightly based on specific brands and preparation methods.")
     st.markdown('</div>', unsafe_allow_html=True)
 
     # Weekly Notes
