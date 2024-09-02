@@ -144,28 +144,18 @@ def show_jessica_page():
     # Interactive Week Selection
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
     selected_week = st.slider("Select Week", min_value=1, max_value=16, value=1)
+    
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
     st.header("Message From AI Professor")
-    professor_messages = {
-        1: "https://youtu.be/mxUKxb1SUJs",
-        # 추가 주차의 메시지 영상 URL을 여기에 추가할 수 있습니다.
-    }
-    
-    message_url = professor_messages.get(selected_week)
-    if message_url:
-        st.markdown(f"""
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-          <iframe src="{message_url}" 
-                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" 
-                 frameborder="0" 
-                 allow="autoplay; encrypted-media" 
-                 allowfullscreen>
-          </iframe>
-        </div>
-        """, unsafe_allow_html=True)
-    else:
-        st.write("No message available for this week.")
+    st.markdown("""
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/mxUKxb1SUJs?si=B4OxUxqbRwiKV0CU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+    """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
+
+
+
     
     # Weekly Mission
     st.header("Weekly Mission")
