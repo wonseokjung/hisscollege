@@ -273,7 +273,8 @@ def show_karin_page():
         "Week 20: Final Assessment and Future Planning"
     ]
 
-    completed_weeks = [1, 2]
+    completed_weeks = [1, 2, 3]
+
 
     for index, item in enumerate(curriculum, start=1):
         completion_status = "✅" if index in completed_weeks else "⬜"
@@ -293,7 +294,9 @@ def show_karin_page():
     weeks_data = {
         1: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 83.4, "Energy Level": 6, "Sleep Quality": 6.5},
         2: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 83.4, "Energy Level": 7, "Sleep Quality": 7.0},
-        3: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 82.5, "Energy Level": 7, "Sleep Quality": 7.5},
+        3: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 83.4, "Energy Level": 7, "Sleep Quality": 7.0},
+       
+        4: {"Knee Push-ups": 22, "Squat Holding": 80, "Burpees": 3, "Plank Holding": 55, "Weight": 83.0, "Energy Level": 9, "Sleep Quality": 8.0},
     }
 
     df = pd.DataFrame(weeks_data).T
@@ -301,7 +304,8 @@ def show_karin_page():
 
     # Interactive Week Selection
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
-    selected_week = st.slider("Select Week", min_value=1, max_value=3, value=len(weeks_data))
+    selected_week = st.slider("Select Week", min_value=1, max_value=4, value=4)
+
     
     st.header("Message From Jay Professor")
     professor_messages = {
@@ -366,6 +370,19 @@ def show_karin_page():
                 "Get at least 7 hours of sleep each night"
             ],
             "video_url": "https://www.youtube.com/embed/RSDcw4ROhdM"
+        },
+        4: {
+            "missions": [
+                "Montag: 1-Minuten Morgenübungen + 1-Minuten Core Blast",
+                "Dienstag: 6-Minuten Dehnungsroutine für bessere Mobilität",
+                "Mittwoch: 12-Minuten Kurzhantel-Schulter-Herausforderung",
+                "Donnerstag: 1-Minuten Morgenübungen + 1-Minuten Core Blast",
+                "Freitag: 6-Minuten Bodyweight-Workout für Anfänger",
+                "Täglich: Mindestens 10.000 Schritte",
+                "Ernährung: Befolgen Sie den veganen Ernährungsplan und halten Sie das Intervallfasten ein",
+                "Schlaf: Versuchen Sie, die Schlafqualität zu verbessern und 7 Stunden Schlaf anzustreben"
+            ],
+            "video_url": "https://www.youtube.com/embed/rjG1Vg8UhUk"
         }
     }
 
@@ -403,7 +420,15 @@ def show_karin_page():
         - Leg Workout (12 min): [YouTube Link](https://youtu.be/xW19K-uhOGk)
         - Shoulder Workout (6 min): [YouTube Link](https://youtu.be/K8b5HsX1MFc)
         """)
-
+    if selected_week == 4:
+            st.subheader("Woche 4 Workout-Videos")
+            st.markdown("""
+            - Morgenübungen (1 Min): [YouTube Link](https://youtu.be/rjG1Vg8UhUk?si=xAwJinXgxBfalgi0)
+            - Core Blast (1 Min): [YouTube Link](https://youtu.be/RRkX9vBNIF4?si=h3fl-_9GJCcG0nvU)
+            - Dehnungsroutine (6 Min): [YouTube Link](https://youtu.be/sYfwC0wZztI?si=opYLIiZeSXBIiV8k)
+            - Schulter-Workout (12 Min): [YouTube Link](https://youtu.be/kWzuBSn_kMw?si=Jp50sqPcXU72MgtN)
+            - Bodyweight-Workout (6 Min): [YouTube Link](https://youtu.be/caIm2OVkqiw?si=SLfEL_7O9ptnLamY)
+            """)
     st.markdown('</div>', unsafe_allow_html=True)
 
     # Current Stats
