@@ -5,8 +5,8 @@ from plotly.subplots import make_subplots
 import plotly.express as px
 
 PASSWORDS = {
-    "AI-Jessica": "jessica000",
-    # 다른 학생들의 비밀번호도 여기에 추가
+    "AI-Phoebe": "phoebe000",
+    # Add other students' passwords here
 }
 
 def password_protection(student_name):
@@ -26,14 +26,14 @@ def password_protection(student_name):
 
 def generate_progress():
     return {
-        "Python Development": 0,
-        "AI Development": 0,
-        "AI Theory": 0,
-        "AI Application": 0
+        "Python Basics": 0,
+        "Problem Solving": 0,
+        "Data Handling": 0,
+        "AI Creativity": 0
     }
 
-def show_jessica_page():
-    if not password_protection("AI-Jessica"):
+def show_phoebe_page():
+    if not password_protection("AI-Phoebe"):
         return
 
     st.set_page_config(layout="wide", initial_sidebar_state="collapsed")
@@ -75,19 +75,19 @@ def show_jessica_page():
     """, unsafe_allow_html=True)
 
     # GOAL
-    st.markdown('<div class="goal-container">GOAL: Develop Game AI and AI Service for Business in 16 weeks</div>', unsafe_allow_html=True)
+    st.markdown('<div class="goal-container">GOAL: Master Python Basics and Create with AI in 16 weeks</div>', unsafe_allow_html=True)
 
-    st.title("HISS COLLEGE: Jessica's AI Learning Journey")
+    st.title("HISS COLLEGE: Phoebe's AI Learning Journey")
 
     # Student Information
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.markdown("**Name:** Jessica Legere<br>**Major:** Artificial Intelligence<br>**Language:** English", unsafe_allow_html=True)
+        st.markdown("**Name:** Phoebe Leung<br>**Major:** Artificial Intelligence<br>**Language:** English", unsafe_allow_html=True)
     with col2:
-        st.markdown("**Student ID:** AI22001<br>**Year:** 1st Year<br>**Specialization:** AI Entrepreneurship", unsafe_allow_html=True)
+        st.markdown("**Background:** Economics, Accountant<br>**Field:** Humanitarian Aid<br>**Specialization:** AI for Humanitarian Efforts", unsafe_allow_html=True)
     with col3:
-        st.markdown("**Email:** jlegere07@gmail.com<br>**Goal:** Game AI & AI Service for Business", unsafe_allow_html=True)
+        st.markdown("**Email:** kwp.leung@gmail.com<br>**Goal:** Apply AI in Humanitarian Aid", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
     # Current Goal and Curriculum
@@ -95,32 +95,32 @@ def show_jessica_page():
     st.header("Current Program Details")
     st.markdown("""
     <div style='background-color: #e9ecef; padding: 15px; border-radius: 5px; margin-bottom: 20px;'>
-    <h2 style='margin:0; color: black;'>Current Goal: Develop Game AI and AI Business Service</h2>
+    <h2 style='margin:0; color: black;'>Current Goal: Master Python Basics and Create with AI</h2>
     <h3 style='margin:5px 0 0 0; color: black;'>Program Duration: 16 weeks</h3>
     </div>
     """, unsafe_allow_html=True)
 
     st.subheader("16-Week Curriculum Overview")
     curriculum = [
-        "Week 1: Introduction to Google Colab and OpenAI API",
-        "Week 2: Developing a game AI agent using Reinforcement Learning - Part 1",
-        "Week 3: Developing a game AI agent using Reinforcement Learning - Part 2",
-        "Week 4: Introduction to Web Development with Wix - Part 1",
-        "Week 5: Introduction to Web Development with Wix - Part 2",
-        "Week 6: Integrating OpenAI API into Wix website - Part 1",
-        "Week 7: Integrating OpenAI API into Wix website - Part 2",
-        "Week 8: Developing a chatbot for the web service - Part 1",
-        "Week 9: Developing a chatbot for the web service - Part 2",
-        "Week 10: Enhancing UI/UX of the web service - Part 1",
-        "Week 11: Enhancing UI/UX of the web service - Part 2",
-        "Week 12: Implementing additional AI features - Part 1",
-        "Week 13: Implementing additional AI features - Part 2",
-        "Week 14: Testing and debugging the web service - Part 1",
-        "Week 15: Testing and debugging the web service - Part 2",
-        "Week 16: Finalizing the project and preparing for deployment"
+        "Week 1: Introduction to Python and Google Colab",
+        "Week 2: Variables, Data Types, and Basic Operations",
+        "Week 3: Control Structures (if statements, loops)",
+        "Week 4: Functions and Modules",
+        "Week 5: Lists and Tuples",
+        "Week 6: Dictionaries and Sets",
+        "Week 7: File Handling and Exception Handling",
+        "Week 8: Object-Oriented Programming Basics",
+        "Week 9: Working with Libraries (NumPy, Pandas)",
+        "Week 10: Data Visualization with Matplotlib",
+        "Week 11: Web Scraping Basics",
+        "Week 12: Introduction to API Usage",
+        "Week 13: AI for Image Generation",
+        "Week 14: AI for Music Creation",
+        "Week 15: AI for Video Production",
+        "Week 16: Final Project: Creating a Multi-media AI Application"
     ]
 
-    completed_weeks = [1]
+    completed_weeks = []
 
     for index, item in enumerate(curriculum, start=1):
         completion_status = "✅" if index in completed_weeks else "⬜"
@@ -143,13 +143,13 @@ def show_jessica_page():
 
     # Interactive Week Selection
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
-    selected_week = st.slider("Select Week", min_value=1, max_value=16, value=2)
+    selected_week = st.slider("Select Week", min_value=1, max_value=16, value=1)
     
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
     st.header("Message From AI Professor")
     st.markdown("""
     <div style="display: flex; justify-content: center; margin-top: 20px;">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/DF1v3sfxhqo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/_t8v9Drz4KY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     </div>
     """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
@@ -162,19 +162,10 @@ def show_jessica_page():
         1: {
             "missions": [
                 "Set up Google Colab environment",
-                "Create a new Colab notebook and run basic Python code",
-                "Install and import the OpenAI library in Colab",
-                "Create a simple script to call the OpenAI API and generate text",
-                "Experiment with different AI models available through the OpenAI API"
-            ],
-        },
-        2: {
-            "missions": [
-                "Study the basics of prompt engineering",
-                "Read the Prompt Engineering eBook by Professor Jay",
-                "Create an AI response system using OpenAI API",
-                "Experiment with different prompts and analyze their effectiveness",
-                "Document your findings and share your insights"
+                "Learn basic Python syntax",
+                "Create your first Python script",
+                "Explore data types in Python",
+                "Complete exercises in the provided Colab notebook"
             ],
         },
         # Add more weeks as needed
@@ -185,15 +176,15 @@ def show_jessica_page():
         <div style='background-color: #e9ecef; padding: 20px; border-radius: 5px; border: 2px solid black;'>
         <h3 style='color: black; margin-top: 0;'>Week {selected_week} Mission:</h3>
         <ul>
-        {"".join(f"<li>{mission}</li>" for mission in weekly_missions.get(selected_week, {}).get("missions", ["No specific mission for this week."]))}
+        {"".join(f"<li>{mission}</li>" for mission in weekly_missions.get(selected_week, {}).get("missions", ["No specific mission for this week yet."]))}
         </ul>
-        <p><strong>Remember:</strong> Mastering prompt engineering is crucial for effective AI interaction. Enjoy exploring the power of well-crafted prompts!</p>
+        <p><strong>Remember:</strong> Consistency is key in learning programming. Dedicate time each day to practice!</p>
         </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("""
+    st.markdown(f"""
     <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
-        <a href="https://jaijung.notion.site/HISS-COLLEGE-Weekly-Mission-Mastering-Prompt-Engineering-1-b1d7729768554ca89bf007f1038a4435?pvs=4" target="_blank">
+        <a href="https://jaijung.notion.site/LV-1-Basic-Python-Mission-Learning-Korean-Pop-Basic-Python-code-e2e38102996f44f8abe2f97218903cd4" target="_blank">
             <button style="font-size: 18px; padding: 10px 20px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; cursor: pointer;">
                 View this week's Mission!
             </button>
@@ -205,10 +196,10 @@ def show_jessica_page():
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
     st.header(f"Week {selected_week} Stats")
     col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Python Development", f"{df.loc[selected_week, 'Python Development']}%", "")
-    col2.metric("AI Development", f"{df.loc[selected_week, 'AI Development']}%", "")
-    col3.metric("AI Theory", f"{df.loc[selected_week, 'AI Theory']}%", "")
-    col4.metric("AI Application", f"{df.loc[selected_week, 'AI Application']}%", "")
+    col1.metric("Python Basics", f"{df.loc[selected_week, 'Python Basics']}%", "")
+    col2.metric("Problem Solving", f"{df.loc[selected_week, 'Problem Solving']}%", "")
+    col3.metric("Data Handling", f"{df.loc[selected_week, 'Data Handling']}%", "")
+    col4.metric("AI Creativity", f"{df.loc[selected_week, 'AI Creativity']}%", "")
     st.markdown('</div>', unsafe_allow_html=True)
 
     # Comprehensive Progress Visualization
@@ -220,24 +211,24 @@ def show_jessica_page():
                         column_widths=[0.7, 0.3])
 
     # Skill Progress
-    fig.add_trace(go.Scatter(x=df.index, y=df['Python Development'], mode='lines+markers', name='Python Development', line=dict(color='#FF6B6B')), row=1, col=1)
-    fig.add_trace(go.Scatter(x=df.index, y=df['AI Development'], mode='lines+markers', name='AI Development', line=dict(color='#4ECDC4')), row=1, col=1)
-    fig.add_trace(go.Scatter(x=df.index, y=df['AI Theory'], mode='lines+markers', name='AI Theory', line=dict(color='#FFD93D')), row=1, col=1)
-    fig.add_trace(go.Scatter(x=df.index, y=df['AI Application'], mode='lines+markers', name='AI Application', line=dict(color='#6BCB77')), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Python Basics'], mode='lines+markers', name='Python Basics', line=dict(color='#FF6B6B')), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Problem Solving'], mode='lines+markers', name='Problem Solving', line=dict(color='#4ECDC4')), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['Data Handling'], mode='lines+markers', name='Data Handling', line=dict(color='#FFD93D')), row=1, col=1)
+    fig.add_trace(go.Scatter(x=df.index, y=df['AI Creativity'], mode='lines+markers', name='AI Creativity', line=dict(color='#6BCB77')), row=1, col=1)
 
     # Weekly Comparison
-    categories = ['Python Development', 'AI Development', 'AI Theory', 'AI Application']
+    categories = ['Python Basics', 'Problem Solving', 'Data Handling', 'AI Creativity']
     fig.add_trace(go.Bar(x=categories, y=[0, 0, 0, 0], name=f'Week {selected_week}', marker_color='#4D96FF'), row=1, col=2)
 
-    fig.update_layout(height=400, width=800, title_text="Jessica's AI Learning Journey", showlegend=True)
+    fig.update_layout(height=400, width=800, title_text="Phoebe's AI Learning Journey", showlegend=True)
     fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='lightgray')
     fig.update_yaxes(showgrid=True, gridwidth=1, gridcolor='lightgray')
     st.plotly_chart(fig)
 
     # Learning Focus Distribution (as a separate chart)
     focus_data = pd.DataFrame({
-        'Category': ['Python Development', 'AI Development', 'AI Theory', 'AI Application'],
-        'Percentage': [25, 25, 25, 25]
+        'Category': ['Python Basics', 'Problem Solving', 'Data Handling', 'AI Creativity'],
+        'Percentage': [40, 25, 25, 10]
     })
     fig_pie = px.pie(focus_data, values='Percentage', names='Category', title='Learning Focus Distribution')
     st.plotly_chart(fig_pie)
@@ -248,13 +239,12 @@ def show_jessica_page():
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
     st.header("Weekly Insights")
     weekly_notes = {
-        1: "Completed introduction to Google Colab and OpenAI API. Set up the environment and got familiar with the basic concepts and tools.",
-        2: "Focusing on prompt engineering basics and creating an AI response system using OpenAI API. Reading Professor Jay's eBook for deeper insights.",
+        1: "Introduced to Google Colab and basic Python concepts. Focus on building a strong foundation in programming.",
     }
-    st.write(weekly_notes.get(selected_week, "No notes available for this week."))
+    st.write(weekly_notes.get(selected_week, "No notes available for this week yet."))
 
     # Motivation Quote
-    st.markdown('<div style="background-color: black; color: white; padding: 10px; border-radius: 5px;">"The best way to predict the future is to create it." - Peter Drucker</div>', unsafe_allow_html=True)
+    st.markdown('<div style="background-color: black; color: white; padding: 10px; border-radius: 5px;">"The only way to learn a new programming language is by writing programs in it." - Dennis Ritchie</div>', unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-show_jessica_page()
+show_phoebe_page()

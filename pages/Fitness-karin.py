@@ -101,51 +101,51 @@ def bmi_calculator():
         st.plotly_chart(fig)
 
 def detailed_nutrition_plan():
-    st.header("Detailed Nutrition Plan")
+    st.header("Detailed Nutrition Plan (Vegan & Intermittent Fasting)")
 
     # More detailed weekly meal plan
     meal_plan = {
         "Day": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        "Breakfast": [
-            "Greek yogurt (150g) with berries (100g) and granola (30g)",
-            "Whole grain toast (2 slices) with avocado (1/2) and eggs (2)",
-            "Oatmeal (50g dry) with banana (1 medium) and chia seeds (15g)",
-            "Protein pancakes (2) with fresh berries (100g)",
-            "Scrambled eggs (3) with spinach (50g) and whole grain toast (1 slice)",
-            "Whole grain cereal (50g) with almond milk (250ml) and sliced almonds (30g)",
-            "Vegetable omelet (3 eggs) with whole grain toast (1 slice)"
+        "Breakfast (Breaking Fast)": [
+            "Overnight oats (40g oats, 5g chia seeds, 10g hemp seeds, 100ml soy milk) with berries and banana",
+            "Overnight oats with apple and cinnamon",
+            "Overnight oats with peach and almond butter",
+            "Overnight oats with blueberries and walnuts",
+            "Overnight oats with strawberries and pumpkin seeds",
+            "Whole grain bread with hummus, avocado, tomato, and cucumber",
+            "Tofu scramble with vegetables on whole grain toast"
         ],
         "Lunch": [
-            "Grilled chicken breast (150g) salad with mixed greens (100g) and vinaigrette (15ml)",
-            "Turkey (100g) and vegetable wrap with hummus (30g)",
-            "Tuna salad (100g tuna) on whole grain bread (2 slices)",
-            "Lentil soup (300ml) with a side salad (100g)",
-            "Grilled vegetable (200g) and chickpea (100g) bowl",
-            "Grilled shrimp skewers (150g) with brown rice (150g cooked)",
-            "Grilled chicken Caesar salad (150g chicken, 100g romaine, light dressing)"
+            "Asian-style tofu stir-fry with vegetables and brown rice",
+            "Lentil and vegetable soup with whole grain bread",
+            "Quinoa salad with mixed vegetables and chickpeas",
+            "Whole grain wrap with hummus, falafel, and salad",
+            "Buddha bowl with sweet potato, kale, and tahini dressing",
+            "Vegetable sushi rolls with edamame",
+            "Vegan chili with mixed beans and brown rice"
         ],
         "Dinner": [
-            "Baked salmon (150g) with quinoa (150g cooked) and roasted vegetables (200g)",
-            "Lean beef stir-fry (150g beef) with brown rice (150g cooked)",
-            "Grilled tofu (200g) with sweet potato (150g) and broccoli (100g)",
-            "Baked chicken breast (150g) with zucchini noodles (200g)",
-            "Lean pork tenderloin (150g) with asparagus (100g) and quinoa (150g cooked)",
-            "Turkey burger (150g, no bun) with sweet potato fries (100g)",
-            "Baked cod (150g) with roasted Brussels sprouts (100g) and wild rice (150g cooked)"
+            "Large green salad with grilled tempeh and avocado",
+            "Zucchini noodles with vegan pesto and cherry tomatoes",
+            "Cauliflower rice stir-fry with tofu and vegetables",
+            "Stuffed bell peppers with quinoa and black beans",
+            "Vegan curry with vegetables and brown rice",
+            "Grilled vegetable skewers with hummus and whole grain pita",
+            "Vegan protein shake with spinach and mixed berries"
         ],
         "Snack": [
-            "Apple slices (1 medium) with almond butter (30g)",
-            "Protein smoothie (1 scoop whey, 250ml almond milk, 1 banana)",
-            "Carrot sticks (100g) with guacamole (50g)",
-            "Greek yogurt (150g) with honey (15g)",
-            "Mixed nuts (30g) and dried fruit (20g)",
-            "Celery sticks (100g) with peanut butter (30g)",
-            "Cottage cheese (150g) with peaches (100g)"
+            "Apple slices with almond butter",
+            "Carrot sticks with hummus",
+            "Mixed nuts and dried figs",
+            "Celery sticks with peanut butter",
+            "Vegan protein bar",
+            "Fresh berries and coconut yogurt",
+            "Vegan protein shake with banana and peanut butter"
         ],
-        "Breakfast_Cal": [350, 400, 350, 300, 350, 400, 350],
-        "Lunch_Cal": [400, 450, 400, 350, 400, 450, 400],
-        "Dinner_Cal": [500, 550, 450, 400, 500, 450, 450],
-        "Snack_Cal": [200, 250, 200, 200, 250, 250, 200]
+        "Breakfast_Cal": [350, 350, 350, 350, 350, 400, 350],
+        "Lunch_Cal": [450, 400, 450, 400, 450, 400, 450],
+        "Dinner_Cal": [400, 350, 400, 450, 450, 400, 300],
+        "Snack_Cal": [200, 150, 200, 150, 200, 200, 250]
     }
 
     df_meal_plan = pd.DataFrame(meal_plan)
@@ -154,11 +154,11 @@ def detailed_nutrition_plan():
     df_meal_plan['Total_Cal'] = df_meal_plan['Breakfast_Cal'] + df_meal_plan['Lunch_Cal'] + df_meal_plan['Dinner_Cal'] + df_meal_plan['Snack_Cal']
 
     # Calculate approximate macronutrient ratios
-    df_meal_plan['Protein'] = df_meal_plan['Total_Cal'] * 0.3 / 4  # 30% of calories from protein
-    df_meal_plan['Carbs'] = df_meal_plan['Total_Cal'] * 0.4 / 4    # 40% of calories from carbs
-    df_meal_plan['Fat'] = df_meal_plan['Total_Cal'] * 0.3 / 9      # 30% of calories from fat
+    df_meal_plan['Protein'] = df_meal_plan['Total_Cal'] * 0.25 / 4  # 25% of calories from protein
+    df_meal_plan['Carbs'] = df_meal_plan['Total_Cal'] * 0.5 / 4    # 50% of calories from carbs
+    df_meal_plan['Fat'] = df_meal_plan['Total_Cal'] * 0.25 / 9     # 25% of calories from fat
 
-    st.subheader("Weekly Meal Plan with Calorie Breakdown")
+    st.subheader("Weekly Vegan Meal Plan with Calorie Breakdown")
     st.dataframe(df_meal_plan)
 
     # Daily calorie graph
@@ -186,6 +186,23 @@ def detailed_nutrition_plan():
                      color_discrete_map={'Protein': '#FF6347', 'Carbs': '#32CD32', 'Fat': '#FFD700'})
     st.plotly_chart(fig_pie)
 
+    # Additional vegan-specific information
+    st.subheader("Vegan Nutrition Tips")
+    st.write("As a vegan following intermittent fasting, focus on nutrient-dense plant-based foods during your eating window. Ensure adequate protein intake from sources like legumes, tofu, tempeh, and vegan protein powder. Pay special attention to nutrients that can be challenging in a vegan diet, such as vitamin B12, iron, zinc, and omega-3 fatty acids.")
+
+    # Vegan supplement recommendations
+    st.subheader("Recommended Supplements for Vegans")
+    supplements = [
+        ("Vitamin B12", "1000 mcg daily or 2000 mcg weekly"),
+        ("Vitamin D3 (Vegan)", "2000 IU daily"),
+        ("Omega-3 (Algae-based)", "300-500mg DHA daily"),
+        ("Iron", "18mg daily (if levels are low)"),
+        ("Zinc", "15mg daily"),
+        ("Vegan Protein Powder", "As needed to meet protein goals")
+    ]
+    df_supplements = pd.DataFrame(supplements, columns=["Supplement", "Dosage"])
+    st.table(df_supplements)
+    
 def show_karin_page():
     if not password_protection("Karin"):
         return
