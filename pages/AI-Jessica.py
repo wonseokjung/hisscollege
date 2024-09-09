@@ -103,8 +103,8 @@ def show_jessica_page():
     st.subheader("16-Week Curriculum Overview")
     curriculum = [
         "Week 1: Introduction to Google Colab and OpenAI API",
-        "Week 2: Developing a game AI agent using Reinforcement Learning - Part 1",
-        "Week 3: Developing a game AI agent using Reinforcement Learning - Part 2",
+        "Week 2: Build AI using OPEN AI, Understanding Prompt Engineering",
+        "Week 3: Developing a game AI agent using Reinforcement Learning ",
         "Week 4: Introduction to Web Development with Wix - Part 1",
         "Week 5: Introduction to Web Development with Wix - Part 2",
         "Week 6: Integrating OpenAI API into Wix website - Part 1",
