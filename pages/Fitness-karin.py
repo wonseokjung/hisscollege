@@ -508,6 +508,7 @@ def show_karin_page():
     st.plotly_chart(fig_pie)
 
     # Radar Chart for Overall Progress
+    # Radar Chart for Overall Progress
     st.subheader("Overall Progress (Relative to Starting Point)")
     categories = ['Knee Push-ups', 'Squat Holding', 'Burpees', 'Plank Holding', 'Energy Level', 'Sleep Quality']
     fig_radar = go.Figure(data=go.Scatterpolar(
