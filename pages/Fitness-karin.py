@@ -273,7 +273,7 @@ def show_karin_page():
         "Week 20: Final Assessment and Future Planning"
     ]
 
-    completed_weeks = [1, 2, 3]
+    completed_weeks = [1, 2, 3,4,5]
 
 
     for index, item in enumerate(curriculum, start=1):
@@ -295,8 +295,10 @@ def show_karin_page():
         1: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 83.4, "Energy Level": 6, "Sleep Quality": 6.5},
         2: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 83.4, "Energy Level": 7, "Sleep Quality": 7.0},
         3: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 83.4, "Energy Level": 7, "Sleep Quality": 7.0},
-       
         4: {"Knee Push-ups": 22, "Squat Holding": 80, "Burpees": 3, "Plank Holding": 55, "Weight": 83.0, "Energy Level": 9, "Sleep Quality": 8.0},
+        5: {"Knee Push-ups": 31, "Squat Holding": 94, "Burpees": 8, "Plank Holding": 95, "Weight": 81.5, "Energy Level": 6, "Sleep Quality": 6.6},
+        6: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 81.5, "Energy Level": 6, "Sleep Quality": 6.6}
+
     }
 
     df = pd.DataFrame(weeks_data).T
@@ -304,7 +306,7 @@ def show_karin_page():
 
     # Interactive Week Selection
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
-    selected_week = st.slider("Select Week", min_value=1, max_value=4, value=4)
+    selected_week = st.slider("Select Week", min_value=1, max_value=6, value=6)
 
     
     st.header("Message From Jay Professor")
@@ -312,8 +314,11 @@ def show_karin_page():
         1: "",
         2: "",
         3: "https://www.youtube.com/embed/VAeeAz-FURY",
-        # Add more weekly message video URLs here
+        4: "https://www.youtube.com/embed/rjG1Vg8UhUk",
+        5: "",
+        6: "https://www.youtube.com/embed/4HHuF03o2mI"
     }
+
 
     message_url = professor_messages.get(selected_week)
     if message_url:
@@ -383,8 +388,22 @@ def show_karin_page():
                 "Schlaf: Versuchen Sie, die Schlafqualität zu verbessern und 7 Stunden Schlaf anzustreben"
             ],
             "video_url": "https://www.youtube.com/embed/rjG1Vg8UhUk"
+        },
+        6: {
+            "missions": [
+                "Complete the Basic Mission LV.1 (Basic stage 2) as outlined in the provided link.",
+                "Daily: Achieve at least 10,000 steps",
+                "Nutrition: Follow the vegan meal plan and maintain intermittent fasting",
+                "Sleep: Aim for 7-8 hours of quality sleep each night",
+                "Additional: Mountain climbing 2 minutes every day"
+            ],
+            "notion_url": "https://jaijung.notion.site/Basic-Mission-LV-1-Basic-stage-2-10ab0dd7632380cda1a3d4a2bbd064d0?pvs=4"
         }
+
     }
+
+
+    
 
     with mission_box:
         st.markdown(f"""
@@ -429,7 +448,12 @@ def show_karin_page():
             - Schulter-Workout (12 Min): [YouTube Link](https://youtu.be/kWzuBSn_kMw?si=Jp50sqPcXU72MgtN)
             - Bodyweight-Workout (6 Min): [YouTube Link](https://youtu.be/caIm2OVkqiw?si=SLfEL_7O9ptnLamY)
             """)
-    st.markdown('</div>', unsafe_allow_html=True)
+
+    if selected_week == 6:
+        notion_url = weekly_missions[6].get("notion_url")
+        st.markdown(f"<p><strong>Detailed Mission:</strong> <a href='{notion_url}' target='_blank'>Basic Mission LV.1 (Basic stage 2)</a></p>", unsafe_allow_html=True)
+    
+    st.markdown("</div>", unsafe_allow_html=True)
 
     # Current Stats
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
@@ -463,8 +487,8 @@ def show_karin_page():
     fig.add_trace(go.Bar(x=df.index, y=df['Squat Holding'], name='Squat Holding', marker_color='#FF6B6B'), row=2, col=2)
     fig.add_trace(go.Bar(x=df.index, y=df['Plank Holding'], name='Plank Holding', marker_color='#FFD93D'), row=2, col=2)
     
-    # Daily Steps (New)
-    daily_steps = [7000, 7500]  # Example data
+    # Daily Steps
+    daily_steps = [7000, 7500, 8000, 9000, 10000]  # Updated with Week 5 data
     fig.add_trace(go.Scatter(x=df.index, y=daily_steps, mode='lines+markers', name='Daily Steps', line=dict(color='#FF9999')), row=3, col=1)
     fig.add_trace(go.Scatter(x=df.index, y=[8000]*len(df), mode='lines', name='Step Goal', line=dict(dash='dash', color='#66B2FF')), row=3, col=1)
 
