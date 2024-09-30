@@ -273,7 +273,7 @@ def show_karin_page():
         "Week 20: Final Assessment and Future Planning"
     ]
 
-    completed_weeks = [1, 2, 3,4,5]
+    completed_weeks = [1, 2, 3, 4, 5, 6]
 
 
     for index, item in enumerate(curriculum, start=1):
@@ -297,8 +297,8 @@ def show_karin_page():
         3: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 83.4, "Energy Level": 7, "Sleep Quality": 7.0},
         4: {"Knee Push-ups": 22, "Squat Holding": 80, "Burpees": 3, "Plank Holding": 55, "Weight": 83.0, "Energy Level": 9, "Sleep Quality": 8.0},
         5: {"Knee Push-ups": 31, "Squat Holding": 94, "Burpees": 8, "Plank Holding": 95, "Weight": 81.5, "Energy Level": 6, "Sleep Quality": 6.6},
-        6: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 81.5, "Energy Level": 6, "Sleep Quality": 6.6}
-
+        6: {"Knee Push-ups": 0, "Squat Holding": 0, "Burpees": 0, "Plank Holding": 0, "Weight": 81.5, "Energy Level": 6, "Sleep Quality": 6.6},
+        7: {"Knee Push-ups": 35, "Squat Holding": 103, "Burpees": 15, "Plank Holding": 125, "Weight": 80.9, "Energy Level": 10, "Sleep Quality": 7.0}
     }
 
     df = pd.DataFrame(weeks_data).T
@@ -306,7 +306,7 @@ def show_karin_page():
 
     # Interactive Week Selection
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
-    selected_week = st.slider("Select Week", min_value=1, max_value=6, value=6)
+    selected_week = st.slider("Select Week", min_value=1, max_value=7, value=7)
 
     
     st.header("Message From Jay Professor")
@@ -398,7 +398,22 @@ def show_karin_page():
                 "Additional: Mountain climbing 2 minutes every day"
             ],
             "notion_url": "https://jaijung.notion.site/Basic-Mission-LV-1-Basic-stage-2-10ab0dd7632380cda1a3d4a2bbd064d0?pvs=4"
-        }
+        },
+        7: {
+        "missions": [
+            "Complete the Basic Mission LV.1 (Basic stage 3) from Monday to Thursday",
+            "Additional sprint workout:",
+            "- Sprint (full speed) for 10 seconds",
+            "- Rest for 3 minutes",
+            "- Repeat the sprint",
+            "- Rest again",
+            "- Complete 5 sets of this sprint-rest cycle",
+            "Maintain daily step goal",
+            "Continue following the nutrition plan, adjusting as needed during travel",
+            "Try to maintain sleep quality even while traveling"
+        ],
+        "notion_url": "https://jaijung.notion.site/Basic-Mission-LV-1-Basic-stage-3-111b0dd76323806f945fc56d6e9b213a?pvs=4"
+    }
 
     }
 
@@ -453,7 +468,10 @@ def show_karin_page():
         notion_url = weekly_missions[6].get("notion_url")
         st.markdown(f"<p><strong>Detailed Mission:</strong> <a href='{notion_url}' target='_blank'>Basic Mission LV.1 (Basic stage 2)</a></p>", unsafe_allow_html=True)
     
-    st.markdown("</div>", unsafe_allow_html=True)
+    if selected_week == 7:
+        notion_url = weekly_missions[7].get("notion_url")
+        st.markdown(f"<p><strong>Detailed Mission:</strong> <a href='{notion_url}' target='_blank'>Basic Mission LV.1 (Basic stage 3)</a></p>", unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
     # Current Stats
     st.markdown('<div class="custom-container">', unsafe_allow_html=True)
